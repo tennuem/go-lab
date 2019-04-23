@@ -5,58 +5,45 @@ import (
 	"sync"
 )
 
-var wg sync.WaitGroup
-
-var outChan chan int
-var quit chan bool
-
 func main() {
-	outChan = make(chan int)
-	quit = make(chan bool)
+	ch1 := write()
+	ch2 := write()
 
-	ch1 := make(chan int)
-	ch2 := make(chan int)
-
-	wg.Add(2)
-	go mergeChanels(ch1, ch2)
-	go read()
-
-	ch1 <- 1
-	ch2 <- 2
-
-	close(ch1)
-	close(ch2)
-
-	wg.Wait()
+	for n := range merge(ch1, ch2) {
+		fmt.Println(n)
+	}
 }
 
-func mergeChanels(inChan ...chan int) {
-	defer func() {
-		wg.Done()
-
+func write() <-chan int {
+	out := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			out <- i
+		}
+		close(out)
 	}()
 
-	wg.Add(len(inChan))
-
-	for _, ch := range inChan {
-		go func(ch chan int) {
-			defer wg.Done()
-			for {
-				v, ok := <-ch
-				if !ok {
-					return
-				}
-				outChan <- v
-			}
-		}(ch)
-	}
-
-	wg.Wait()
+	return out
 }
 
-func read() {
-	defer wg.Done()
-	for v := range outChan {
-		fmt.Println(v)
+func merge(cs ...<-chan int) <-chan int {
+	var wg sync.WaitGroup
+	out := make(chan int)
+
+	wg.Add(len(cs))
+	for _, c := range cs {
+		go func(c <-chan int) {
+			defer wg.Done()
+			for n := range c {
+				out <- n
+			}
+		}(c)
 	}
+
+	go func() {
+		wg.Wait()
+		close(out)
+	}()
+
+	return out
 }

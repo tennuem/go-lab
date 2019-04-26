@@ -6,27 +6,34 @@ import (
 )
 
 func main() {
-	ch1 := write()
-	ch2 := write()
+	quit := make(chan struct{})
+	defer close(quit)
 
-	for n := range merge(ch1, ch2) {
+	ch1 := write(quit)
+	ch2 := write(quit)
+
+	for n := range merge(quit, ch1, ch2) {
 		fmt.Println(n)
 	}
 }
 
-func write() <-chan int {
+func write(quit <-chan struct{}) <-chan int {
 	out := make(chan int)
 	go func() {
+		defer close(out)
 		for i := 0; i < 10; i++ {
-			out <- i
+			select {
+			case out <- i:
+			case <-quit:
+				return
+			}
 		}
-		close(out)
 	}()
 
 	return out
 }
 
-func merge(cs ...<-chan int) <-chan int {
+func merge(quit <-chan struct{}, cs ...<-chan int) <-chan int {
 	var wg sync.WaitGroup
 	out := make(chan int)
 
@@ -35,7 +42,11 @@ func merge(cs ...<-chan int) <-chan int {
 		go func(c <-chan int) {
 			defer wg.Done()
 			for n := range c {
-				out <- n
+				select {
+				case out <- n:
+				case <-quit:
+					return
+				}
 			}
 		}(c)
 	}

@@ -1,1 +1,1 @@
-# go-lab
+# go-lab [![Coverage Status](https://coveralls.io/repos/github/tennuem/go-lab/badge.svg?branch=master)](https://coveralls.io/github/tennuem/go-lab?branch=master)

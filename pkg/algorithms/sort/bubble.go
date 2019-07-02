@@ -1,75 +1,26 @@
 package sort
 
-import (
-	"time"
-)
-
-func NewBubble() Sort {
-	return &bubbleSort{}
-}
-
-type bubbleSort struct {
-	Items      []int
-	Operations int
-	Durations  time.Duration
-}
-
-func (s *bubbleSort) Result1(array []int) []int {
-
-	// Time of algorithm execution
-	start := time.Now()
-	defer func(start time.Time) {
-		s.Durations = time.Since(start)
-	}(start)
-
-	end := len(array) - 1
-	for {
-		if end == 0 {
-			break
-		}
-		for i := 0; i < len(array)-1; i++ {
-
-			// Counting number operations
-			s.Operations++
-
-			if array[i] < array[i+1] {
-				array[i], array[i+1] = array[i+1], array[i]
+func BubbleSort1(arr []int) []int {
+	for i := 0; i < len(arr); i++ {
+		for j := 0; j < len(arr)-1-i; j++ {
+			if arr[j] > arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
 			}
 		}
-		end--
 	}
-	return array
+	return arr
 }
 
-func (s *bubbleSort) Result(array []int) []int {
-
-	// Time of algorithm execution
-	start := time.Now()
-	defer func(start time.Time) {
-		s.Durations = time.Since(start)
-	}(start)
-
+func BubbleSort2(arr []int) []int {
 	var swapped bool = true
 	for swapped {
 		swapped = false
-		for i := 0; i < len(array)-1; i++ {
-
-			// Counting number operations
-			s.Operations++
-
-			if array[i] > array[i+1] {
-				array[i], array[i+1] = array[i+1], array[i]
+		for i := 0; i < len(arr)-1; i++ {
+			if arr[i] > arr[i+1] {
+				arr[i], arr[i+1] = arr[i+1], arr[i]
 				swapped = true
 			}
 		}
 	}
-	return array
-}
-
-func (s *bubbleSort) Operation() int {
-	return s.Operations
-}
-
-func (s *bubbleSort) Duration() time.Duration {
-	return s.Durations
+	return arr
 }

@@ -1,43 +1,14 @@
 package sort
 
-import (
-	"time"
-)
-
-func NewMerge() Sort {
-	return &mergeSort{}
+func MergeSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+	middle := len(arr) / 2
+	left := MergeSort(arr[:middle])
+	right := MergeSort(arr[middle:])
+	return merge(left, right)
 }
-
-type mergeSort struct {
-	Items      []int
-	Operations int
-	Durations  time.Duration
-}
-
-func (s *mergeSort) Result(array []int) []int {
-
-	// Time of algorithm execution
-	start := time.Now()
-	defer func(start time.Time) {
-		s.Durations = time.Since(start)
-	}(start)
-
-	result := sort(array)
-
-	s.Operations = count
-
-	return result
-}
-
-func (s *mergeSort) Operation() int {
-	return s.Operations
-}
-
-func (s *mergeSort) Duration() time.Duration {
-	return s.Durations
-}
-
-var count int
 
 func merge(left, right []int) []int {
 	ret := make([]int, 0, len(left)+len(right))
@@ -57,18 +28,4 @@ func merge(left, right []int) []int {
 		}
 	}
 	return ret
-}
-
-func sort(s []int) []int {
-
-	count++
-
-	if len(s) <= 1 {
-		return s
-	}
-
-	middle := len(s) / 2
-	left := sort(s[:middle])
-	right := sort(s[middle:])
-	return merge(left, right)
 }

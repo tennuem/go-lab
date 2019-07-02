@@ -1,22 +1,27 @@
 package pkg
 
 import (
+	"sync"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 )
 
 func TestAtomicCounter(t *testing.T) {
-	var ac AtomicCounter
+	var (
+		wg sync.WaitGroup
+		ac AtomicCounter
+	)
 	for i := 0; i < 100; i++ {
+		wg.Add(1)
 		go func(no int) {
+			defer wg.Done()
 			for i := 0; i < 10000; i++ {
 				ac.Add(1)
 			}
 		}(i)
 	}
-	time.Sleep(time.Second)
+	wg.Wait()
 
 	assert.Equal(t, int(ac.Value()), 1000000)
 }

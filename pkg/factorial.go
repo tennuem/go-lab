@@ -1,4 +1,4 @@
-package factorial
+package pkg
 
 // Factorial is the product of all positive integers less than or equal to n.
 func Factorial(n int) int {

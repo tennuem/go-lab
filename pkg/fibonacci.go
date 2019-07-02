@@ -1,4 +1,4 @@
-package fibonacci
+package pkg
 
 // Fibonacci is the sum of the two preceding ones, starting from 0 and 1.
 func Fibonacci(n int) int {

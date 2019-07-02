@@ -1,10 +1,6 @@
-package main
+package pkg
 
-import (
-	"fmt"
-	"sync"
-	"time"
-)
+import "sync"
 
 type Stack interface {
 	Push(v int)
@@ -38,34 +34,8 @@ func (s *stack) Pop() int {
 		return 0
 	}
 	s.count--
+	defer func() {
+		s.data = s.data[:s.count]
+	}()
 	return s.data[s.count]
-}
-
-func main() {
-	var wg sync.WaitGroup
-	s := NewStack()
-
-	wg.Add(2)
-	go func() {
-		defer wg.Done()
-		for i := 0; i < 10; i++ {
-			s.Push(i)
-		}
-	}()
-
-	// second goroutine read from stack, bfore first goroutine write to the stack
-	time.Sleep(time.Second * 1)
-
-	go func() {
-		for {
-			v := s.Pop()
-			if v == 0 {
-				wg.Done()
-				break
-			}
-			fmt.Println(v)
-		}
-	}()
-
-	wg.Wait()
 }

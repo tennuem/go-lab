@@ -1,15 +1,40 @@
-package merge
+package sort
 
 import (
 	"time"
-
-	sortInterface "github.com/tennuem/go-lab/internal/algorithms/sort"
 )
 
-type Merge struct {
+func NewMerge() Sort {
+	return &mergeSort{}
+}
+
+type mergeSort struct {
 	Items      []int
 	Operations int
 	Durations  time.Duration
+}
+
+func (s *mergeSort) Result(array []int) []int {
+
+	// Time of algorithm execution
+	start := time.Now()
+	defer func(start time.Time) {
+		s.Durations = time.Since(start)
+	}(start)
+
+	result := sort(array)
+
+	s.Operations = count
+
+	return result
+}
+
+func (s *mergeSort) Operation() int {
+	return s.Operations
+}
+
+func (s *mergeSort) Duration() time.Duration {
+	return s.Durations
 }
 
 var count int
@@ -46,31 +71,4 @@ func sort(s []int) []int {
 	left := sort(s[:middle])
 	right := sort(s[middle:])
 	return merge(left, right)
-}
-
-func (m *Merge) Result(array []int) []int {
-
-	// Time of algorithm execution
-	start := time.Now()
-	defer func(start time.Time) {
-		m.Durations = time.Since(start)
-	}(start)
-
-	result := sort(array)
-
-	m.Operations = count
-
-	return result
-}
-
-func (m *Merge) Operation() int {
-	return m.Operations
-}
-
-func (m *Merge) Duration() time.Duration {
-	return m.Durations
-}
-
-func NewMerge() sortInterface.Sort {
-	return &Merge{}
 }

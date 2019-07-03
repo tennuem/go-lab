@@ -11,21 +11,21 @@ func MergeSort(arr []int) []int {
 }
 
 func merge(left, right []int) []int {
-	ret := make([]int, 0, len(left)+len(right))
+	result := make([]int, 0, len(left)+len(right))
 	for len(left) > 0 || len(right) > 0 {
 		if len(left) == 0 {
-			return append(ret, right...)
+			return append(result, right...)
 		}
 		if len(right) == 0 {
-			return append(ret, left...)
+			return append(result, left...)
 		}
 		if left[0] <= right[0] {
-			ret = append(ret, left[0])
+			result = append(result, left[0])
 			left = left[1:]
 		} else {
-			ret = append(ret, right[0])
+			result = append(result, right[0])
 			right = right[1:]
 		}
 	}
-	return ret
+	return result
 }

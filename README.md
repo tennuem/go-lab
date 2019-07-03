@@ -1,1 +1,1 @@
-# go-lab [![Build Status](https://travis-ci.org/tennuem/go-lab.svg?branch=master)](https://travis-ci.org/tennuem/go-lab) [![Coverage Status](https://coveralls.io/repos/github/tennuem/go-lab/badge.svg?branch=master)](https://coveralls.io/github/tennuem/go-lab?branch=master)
+# go-lab [![Build Status](https://travis-ci.org/tennuem/go-lab.svg?branch=master)](https://travis-ci.org/tennuem/go-lab)

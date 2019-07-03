@@ -1,5 +1,6 @@
 package sort
 
+//InsertionSort1 https://en.wikipedia.org/wiki/Insertion_sort
 func InsertionSort1(arr []int) []int {
 	for i := 1; i < len(arr); i++ {
 		for j := i; j > 0 && arr[j] < arr[j-1]; j-- {
@@ -9,6 +10,7 @@ func InsertionSort1(arr []int) []int {
 	return arr
 }
 
+//InsertionSort2 https://en.wikipedia.org/wiki/Insertion_sort
 func InsertionSort2(arr []int) []int {
 	var i, j int
 	for i = 1; i < len(arr); i++ {

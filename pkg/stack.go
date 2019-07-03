@@ -2,12 +2,15 @@ package pkg
 
 import "sync"
 
+//Stack https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
 type Stack interface {
+	//Push adds an element to the collection.
 	Push(v int)
+	//Pop removes the most recently added element that was not yet removed.
 	Pop() int
 }
 
-// NewStack returns a new stack
+// NewStack returns struct implementing Stack
 func NewStack() Stack {
 	return &stack{}
 }
@@ -18,7 +21,6 @@ type stack struct {
 	mu    sync.Mutex
 }
 
-// Push adds a int to the stack
 func (s *stack) Push(v int) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -26,7 +28,6 @@ func (s *stack) Push(v int) {
 	s.count++
 }
 
-// Pop returns a last int from the stack
 func (s *stack) Pop() int {
 	s.mu.Lock()
 	defer s.mu.Unlock()

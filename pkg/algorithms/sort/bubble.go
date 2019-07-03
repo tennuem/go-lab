@@ -1,5 +1,6 @@
 package sort
 
+//BubbleSort1 https://en.wikipedia.org/wiki/Bubble_sort
 func BubbleSort1(arr []int) []int {
 	for i := 0; i < len(arr); i++ {
 		for j := 0; j < len(arr)-1-i; j++ {
@@ -11,8 +12,9 @@ func BubbleSort1(arr []int) []int {
 	return arr
 }
 
+//BubbleSort2 https://en.wikipedia.org/wiki/Bubble_sort
 func BubbleSort2(arr []int) []int {
-	var swapped bool = true
+	swapped := true
 	for swapped {
 		swapped = false
 		for i := 0; i < len(arr)-1; i++ {

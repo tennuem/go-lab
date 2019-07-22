@@ -1,12 +1,13 @@
 PASS
-ok  	github.com/tennuem/go-lab/pkg	0.196s
+ok  	github.com/tennuem/go-lab/pkg	0.013s
 goos: darwin
 goarch: amd64
 pkg: github.com/tennuem/go-lab/pkg/algorithms/sort
-BenchmarkBubbleSort1-12       	50000000	        37.9 ns/op	       0 B/op	       0 allocs/op
-BenchmarkBubbleSort2-12       	200000000	         8.68 ns/op	       0 B/op	       0 allocs/op
-BenchmarkInsertionSort1-12    	200000000	         7.18 ns/op	       0 B/op	       0 allocs/op
-BenchmarkInsertionSort2-12    	50000000	        30.3 ns/op	       0 B/op	       0 allocs/op
-BenchmarkMergeSort-12         	 5000000	       309 ns/op	     304 B/op	       9 allocs/op
+BenchmarkBubbleSort1-12       	30000000	        37.2 ns/op	       0 B/op	       0 allocs/op
+BenchmarkBubbleSort2-12       	200000000	         8.83 ns/op	       0 B/op	       0 allocs/op
+BenchmarkInsertionSort1-12    	200000000	         7.25 ns/op	       0 B/op	       0 allocs/op
+BenchmarkInsertionSort2-12    	50000000	        31.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMergeSort-12         	 5000000	       305 ns/op	     304 B/op	       9 allocs/op
+BenchmarkQuickSort-12         	 2000000	       613 ns/op	     992 B/op	      22 allocs/op
 PASS
-ok  	github.com/tennuem/go-lab/pkg/algorithms/sort	10.129s
+ok  	github.com/tennuem/go-lab/pkg/algorithms/sort	11.313s

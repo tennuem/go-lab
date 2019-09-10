@@ -1,4 +1,4 @@
-package pkg
+package structures
 
 import "sync"
 

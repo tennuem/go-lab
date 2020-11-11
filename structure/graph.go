@@ -1,4 +1,4 @@
-package structures
+package structure
 
 import "github.com/pkg/errors"
 
